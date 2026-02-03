@@ -24,11 +24,11 @@ https://github.com/nothings/stb/tree/master
 To clone the repo execute the following command on the container folder
    ```bash
    git clone [https://github.com/ChristianLuci/AsciiArtGenerator](https://github.com/ChristianLuci/AsciiArtGenerator)
-
+   ```
 Then compile the project using the following command
   ```bash
   gcc src/main.c src/stb_image_impl.c -o "main" -lm
-
+   ```
 ## 🚀 How to execute
 
 Execute the file with the following flags:
@@ -41,8 +41,8 @@ Execute the file with the following flags:
 
 ## 📌 Execution examples
 Command:    
-```bash
-main -i "image/example.png" -w 375
-
+   ```bash
+   main -i "image/example.png" -w 375
+   ```
 Result:
     ![Example result](./assets/Example.png)
