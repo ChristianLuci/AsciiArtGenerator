@@ -1,0 +1,6 @@
+.vscode
+*.txt
+image
+*.sh
+src/main
+todo
