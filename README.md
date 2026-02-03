@@ -41,8 +41,8 @@ Execute the file with the following flags:
 
 ## 📌 Execution examples
 Command:    
-    ```bash
-    main -i "image/example.png" -w 375
+```bash
+main -i "image/example.png" -w 375
 
 Result:
     ![Example result](./assets/Example.png)
