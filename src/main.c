@@ -16,6 +16,7 @@ struct Config {
   char *path;
   int size;
   char *output;
+  bool help;
 };
 
 int average(int a, int b) { return floor((float)(a + b) / 2); }
@@ -44,12 +45,16 @@ unsigned char *halfHeight(unsigned char *data, int width, int height,
 
 void setupConfig(struct Config *config, int argc, char **argv) {
   for (int i = 1; i < argc; i++) {
+    if(strcmp(argv[i],"-help") == 0){
+        config->help = true;
+        return;
+    }
     if (strcmp(argv[i], "-i") == 0) {
       config->path = argv[i + 1];
       i++;
       continue;
     }
-    if (strcmp(argv[i], "-s") == 0) {
+    if (strcmp(argv[i], "-w") == 0) {
       config->size = atoi(argv[i + 1]);
       i++;
       continue;
@@ -112,6 +117,11 @@ int main(int argc, char **argv) {
   config.size = -1;
   setupConfig(&config, argc, argv);
 
+  if(config.help){
+      printf("%s\n", "\n-i -> Specifies the image to use.\n-w [optional] -> Specifies the width of the console output (default is 300 pixels). The height uses the same proportions as the original image.\n-o [optional] -> Specifies the output path of the .txt with the ascii characters of the image.");
+      return 0;
+  }
+
   if (argc == 1 || strcmp(config.path, "") == 0) {
     printf("%s\n", "ERROR: You must at least specify the path to the image");
     return 0;
@@ -167,26 +177,21 @@ int main(int argc, char **argv) {
     printf("\n");
   }
 
-  char* outputPath = "";
-  if(config.output == NULL ){
-      outputPath = "result/result.txt";
-  }else{
-      outputPath = config.output;
-  }
+  if(config.output != NULL ){
+      FILE *test = fopen(config.output, "w");
+      for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+          int pixel = (y * width + x) * channels;
+          unsigned char r = dataResized[pixel + 0];
+          unsigned char g = dataResized[pixel + 1];
+          unsigned char b = dataResized[pixel + 2];
+          float brightness = (0.299 * r + 0.587 * g + 0.114 * b);
+          unsigned char index = floor((brightness / 255) * (arrayLength - 1));
+          fprintf(test, "%c", asciiLetters[index]);
+        }
 
-  FILE *test = fopen(outputPath, "w");
-  for (int y = 0; y < height; y++) {
-    for (int x = 0; x < width; x++) {
-      int pixel = (y * width + x) * channels;
-      unsigned char r = dataResized[pixel + 0];
-      unsigned char g = dataResized[pixel + 1];
-      unsigned char b = dataResized[pixel + 2];
-      float brightness = (0.299 * r + 0.587 * g + 0.114 * b);
-      unsigned char index = floor((brightness / 255) * (arrayLength - 1));
-      fprintf(test, "%c", asciiLetters[index]);
-    }
-
-    fprintf(test, "\n");
+        fprintf(test, "\n");
+      }
   }
   free(dataResized);
   return 0;
