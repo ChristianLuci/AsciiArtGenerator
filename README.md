@@ -23,7 +23,7 @@ https://github.com/nothings/stb/tree/master
 1. **Clone the repo**
 To clone the repo execute the following command on the container folder
    ```bash
-   git clone [https://github.com/ChristianLuci/AsciiArtGenerator](https://github.com/ChristianLuci/AsciiArtGenerator)
+   git clone https://github.com/ChristianLuci/AsciiArtGenerator
    ```
 Then compile the project using the following command
   ```bash
