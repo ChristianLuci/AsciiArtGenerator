@@ -3,5 +3,7 @@
 *.txt
 image
 *.sh
-src/main
 todo.?*
+src/*
+!src/*.c
+!src/*.h
