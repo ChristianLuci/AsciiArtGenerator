@@ -1,6 +1,7 @@
 .vscode
+.zed
 *.txt
 image
 *.sh
 src/main
-todo
+todo.?*
